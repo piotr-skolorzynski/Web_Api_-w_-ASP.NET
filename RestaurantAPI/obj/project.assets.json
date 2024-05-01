@@ -972,11 +972,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\RestaurantAPI.csproj",
+      "projectUniqueName": "D:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\RestaurantAPI.csproj",
       "projectName": "RestaurantAPI",
-      "projectPath": "d:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\RestaurantAPI.csproj",
+      "projectPath": "D:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\RestaurantAPI.csproj",
       "packagesPath": "C:\\Users\\48791\\.nuget\\packages\\",
-      "outputPath": "d:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\obj\\",
+      "outputPath": "D:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\48791\\AppData\\Roaming\\NuGet\\NuGet.Config"
