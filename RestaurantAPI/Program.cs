@@ -1,4 +1,5 @@
 //utworzenie webhosta
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI;
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<RestaurantDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestaurantDbConnection"))); //dodanie kontekstu bazy
 builder.Services.AddScoped<RestaurantSeeder>(); //dodanie serwisu do seedowania
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //rejestracja automapera
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
