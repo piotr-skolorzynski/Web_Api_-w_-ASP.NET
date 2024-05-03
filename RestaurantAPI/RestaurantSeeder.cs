@@ -35,7 +35,7 @@ public class RestaurantSeeder
             {
                 Name = "KFC",
                 Category = "Fast Food",
-                Description = "KFC (short for Kentucky Fried Chicken) is an American fast food restaurant chain headquartered",
+                Description = "KFC (short for Kentucky Fried Chicken) is an American fast food restaurant chain headquartered in Luisville, Kentucky, that  specializes in fried chicken",
                 ContactEmail = "contact@kfc.com",
                 HasDelivery = true,
                 Dishes = new List<Dish>()
