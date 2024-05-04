@@ -17,6 +17,12 @@ public class RestaurantController: ControllerBase
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
     {
+        //sprawdzenie walidacji modelu dto, który przyszedł od klienta
+        if (!ModelState.IsValid)
+        {
+            //jeśli nie to prześlij błąd i model walidacji (będzie to konkretne pole, które nie spełnia warunków walidacji)
+            return BadRequest(ModelState);
+        }
         //utworzenie encji restauracji korzystając z mappera i przesłanego dto restauracji
         var restaurant = _mapper.Map<Restaurant>(dto);
         //dodanie restauracji do bazy
