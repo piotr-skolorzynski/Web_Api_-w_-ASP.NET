@@ -9,6 +9,22 @@ public class RestaurantController: ControllerBase
         _restaurantService = restaurantService;
     }
 
+    //usuwanie zasobu
+    [HttpDelete("{id}")]
+    public ActionResult Delete([FromRoute] int id)
+    {
+        var isRestaurantDeleted = _restaurantService.Delete(id);
+
+        if (isRestaurantDeleted)
+        {
+            //jeśli usunięty to zwróć info z grupy 200
+            return NoContent();
+        }
+
+        //jeśli nie było zasobu w bazie
+        return NotFound();
+    }
+
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
     {
