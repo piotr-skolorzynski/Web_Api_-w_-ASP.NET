@@ -15,5 +15,10 @@ public class RestaurantMappingProfile : Profile
             //mapper automatycznie to przepisze
 
         CreateMap<Dish, DishDto>();
+
+        CreateMap<CreateRestaurantDto, Restaurant>()
+            .ForMember(r => r.Address, 
+                c => c.MapFrom(dto => new Address()
+                    { City = dto.City, Street = dto.Street, PostalCode = dto.PostalCode }));
     }
 }

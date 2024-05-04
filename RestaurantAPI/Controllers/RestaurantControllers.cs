@@ -6,15 +6,29 @@ namespace RestaurantAPI;
 [Route("api/restaurant")]
 public class RestaurantController: ControllerBase
 {
-    //żeby móc pobrać dane z bazy musimy mieć dostęp do jej kontekstu
     private readonly RestaurantDbContext _dbContext;
-    //instancja automappera do wykorzystania profilowania 
     private readonly IMapper _mapper;
     public RestaurantController(RestaurantDbContext dbContext, IMapper mapper) {
         _dbContext = dbContext;
         _mapper = mapper;
     }
-    //dobrą praktyką jest zawsze dodanie atrybutu GetHttp mimo że jest domślny 
+
+    //atrybut FromBody określa że model restauracji przyjdzie w ciele zapytania
+    [HttpPost]
+    public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
+    {
+        //utworzenie encji restauracji korzystając z mappera i przesłanego dto restauracji
+        var restaurant = _mapper.Map<Restaurant>(dto);
+        //dodanie restauracji do bazy
+        _dbContext.Restaurants.Add(restaurant);
+        //zapisz zmiany na kontekscie bazy danych
+        _dbContext.SaveChanges();
+
+        //po utworzeniu przesyłamy do klienta info z kodem 201 o utworzeniu i uri lokacji zasobu
+        //opcjonalnie można przekazać ciało odpowiedzi ale tutaj jest null
+        return Created($"/api/restaurant/{restaurant.Id}", null);
+    }
+
     [HttpGet]
     public ActionResult<IEnumerable<RestaurantDto>> GetAll()
     {
@@ -24,13 +38,11 @@ public class RestaurantController: ControllerBase
             .Include(r => r.Dishes)
             .ToList();
         
-        // wykorzystanie zewnętrznej paczki automapper do mapowania z jednej klasy na drugą
-        // zamiast rozpisywania jakie pola mają być przekazana a jakie nie
         var restaurantsDtos = _mapper.Map<List<RestaurantDto>>(restaurants);
 
         return Ok(restaurantsDtos);
     }
-    //zwrócenie konkretnej restauracji na bazie id przekazanego w ścieżce
+
     [HttpGet("{id}")] // api/restaurant/id
     public ActionResult<Restaurant> Get([FromRoute] int id)
     {   
@@ -41,7 +53,6 @@ public class RestaurantController: ControllerBase
             .Include(r => r.Dishes)
             .FirstOrDefault(r => r.Id == id); 
 
-        //jeśli restauracja nieistnieje to rzuć błędem 404
         if (restaurant is null)
         {
             return NotFound();
