@@ -36,7 +36,10 @@ seeder.Seed();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => 
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant API");
+    });
 }
 
 //użyj middleware, kolejność ma znaczenie dlatego wołany jest jako pierwszy żeby mógł zacząć
