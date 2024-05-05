@@ -1,9 +1,14 @@
 //utworzenie webhosta
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 using RestaurantAPI;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//NLog: Setup NLog for dependecy injection
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
 
 // Add services to the container.
 builder.Services.AddControllers();

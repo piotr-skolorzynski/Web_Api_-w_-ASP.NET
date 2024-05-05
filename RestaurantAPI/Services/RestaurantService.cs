@@ -15,35 +15,35 @@ public class RestaurantService: IRestaurantService
 {
     private readonly RestaurantDbContext _dbContext;
     private readonly IMapper _mapper;
-    public RestaurantService(RestaurantDbContext dbContext, IMapper mapper)
+    private readonly ILogger<RestaurantService> _logger;
+    public RestaurantService(RestaurantDbContext dbContext, IMapper mapper, ILogger<RestaurantService> logger)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public bool Update(int id, UpdateRestaurantDto dto)
     {
-        //pobierz restaurację z bazy
         var restaurant = _dbContext
             .Restaurants
             .FirstOrDefault(r => r.Id == id);
         
-        //jeśli nie istnieje to zwróć false
         if (restaurant == null) return false;
 
-        //jeśli jest to nadpisz     
         restaurant.Name = dto.Name;
         restaurant.Description = dto.Description;
         restaurant.HasDelivery = dto.HasDelivery;
-        //zapisz zmiany w bazie
         _dbContext.SaveChanges();
 
-        //zwróć info że się udało
         return true;
     }
 
     public bool Delete(int id)
     {
+        //przykład wykorzystania loggera do zapisu histori usuwania encji restauracji
+        _logger.LogWarning($"Restaurant with id: {id} DELETE action invoked");
+
         var restaurant = _dbContext
             .Restaurants
             .FirstOrDefault(r => r.Id == id); 
