@@ -9,6 +9,7 @@ public interface IRestaurantService
     IEnumerable<RestaurantDto> GetAll();
     int Create(CreateRestaurantDto dto);
     bool Delete(int id);
+    bool Update(int id, UpdateRestaurantDto dto);
 }
 public class RestaurantService: IRestaurantService
 {
@@ -20,7 +21,27 @@ public class RestaurantService: IRestaurantService
         _mapper = mapper;
     }
 
-    //metoda do usuwania zasobu z bazy danych do wykorzystania w kontrolerze
+    public bool Update(int id, UpdateRestaurantDto dto)
+    {
+        //pobierz restaurację z bazy
+        var restaurant = _dbContext
+            .Restaurants
+            .FirstOrDefault(r => r.Id == id);
+        
+        //jeśli nie istnieje to zwróć false
+        if (restaurant == null) return false;
+
+        //jeśli jest to nadpisz     
+        restaurant.Name = dto.Name;
+        restaurant.Description = dto.Description;
+        restaurant.HasDelivery = dto.HasDelivery;
+        //zapisz zmiany w bazie
+        _dbContext.SaveChanges();
+
+        //zwróć info że się udało
+        return true;
+    }
+
     public bool Delete(int id)
     {
         var restaurant = _dbContext
