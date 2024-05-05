@@ -2,6 +2,7 @@
 
 namespace RestaurantAPI;
 [Route("api/restaurant")]
+[ApiController]
 public class RestaurantController: ControllerBase
 {
     private readonly IRestaurantService _restaurantService;
@@ -12,11 +13,6 @@ public class RestaurantController: ControllerBase
     [HttpPut("{id}")]
     public ActionResult Update([FromBody] UpdateRestaurantDto dto, [FromRoute] int id)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         _restaurantService.Update(id, dto);
 
         return Ok();
@@ -33,11 +29,6 @@ public class RestaurantController: ControllerBase
     [HttpPost]
     public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var restaurantId = _restaurantService.Create(dto);
 
         return Created($"/api/restaurant/{restaurantId}", null);
