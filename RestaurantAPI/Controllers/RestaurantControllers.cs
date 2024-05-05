@@ -17,11 +17,7 @@ public class RestaurantController: ControllerBase
             return BadRequest(ModelState);
         }
 
-        var isUpdated = _restaurantService.Update(id, dto);
-        if (!isUpdated)
-        {
-            return NotFound();
-        }
+        _restaurantService.Update(id, dto);
 
         return Ok();
     }
@@ -29,12 +25,7 @@ public class RestaurantController: ControllerBase
     [HttpDelete("{id}")]
     public ActionResult Delete([FromRoute] int id)
     {
-        var isRestaurantDeleted = _restaurantService.Delete(id);
-
-        if (isRestaurantDeleted)
-        {
-            return NoContent();
-        }
+        _restaurantService.Delete(id);
 
         return NotFound();
     }
@@ -64,11 +55,6 @@ public class RestaurantController: ControllerBase
     public ActionResult<Restaurant> Get([FromRoute] int id)
     {   
         var restaurantDto = _restaurantService.GetById(id);
-
-        if (restaurantDto is null)
-        {
-            return NotFound();
-        }
 
         return Ok(restaurantDto);
     }
