@@ -1,0 +1,33 @@
+﻿using AutoMapper;
+
+namespace RestaurantAPI;
+public interface IDishService
+{
+    int Create(int restaurantId, CreateDishDto dto);
+}
+public class DishService : IDishService
+{
+    private readonly RestaurantDbContext _dbContext;
+    private readonly IMapper _mapper;
+    public DishService(RestaurantDbContext dbContext, IMapper mapper)
+    {
+        _dbContext = dbContext;
+        _mapper = mapper;
+    }
+
+    public int Create(int restaurantId, CreateDishDto dto)
+    {
+        var restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Id == restaurantId);
+        if (restaurant is null)
+            throw new NotFoundException("Restaurant not found");
+
+        var dishEntity = _mapper.Map<Dish>(dto);
+        //powiązanie dish z konkretną restauracją bo nie przyszło to od klienta
+        dishEntity.RestaurantId = restaurantId;
+
+        _dbContext.Dishes.Add(dishEntity);
+        _dbContext.SaveChanges();
+
+        return dishEntity.Id; 
+    }
+}
