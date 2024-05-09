@@ -2,7 +2,6 @@
 
 namespace RestaurantAPI;
 
-//ścieżka zawiera id konkretnej restauracji żeby danie było z nim powiązane
 [Route("api/restaurant/{restaurantId}/dish")]
 [ApiController]
 public class DishController : ControllerBase
@@ -12,7 +11,14 @@ public class DishController : ControllerBase
     {
         _dishService = dishService;
     }
-    //należy pamiętać że nazwa parametru musi się pokrywać z nazwą w ścieżce
+
+    [HttpDelete]
+    public ActionResult DeleteAll([FromRoute] int restaurantId)
+    {
+        _dishService.RemoveAll(restaurantId);
+        return NoContent();
+    }
+
     [HttpPost]
     public ActionResult Post([FromRoute] int restaurantId, [FromBody] CreateDishDto dto) 
     {
