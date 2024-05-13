@@ -9,10 +9,23 @@ public class RestaurantDbContext: DbContext
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Dish> Dishes { get; set; }
+    //dodanie tabeli z użytkownikami
+    public DbSet<User> Users { get; set; }
+    //dodanie tabeli z rolami użytkowników
+    public DbSet<Role> Roles { get; set; }
 
-    //możliwość dodatkowego konfigurowania pól
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //dodannie wymaganis posiadania emaila przez użytkownika
+        modelBuilder.Entity<User>()
+            .Property(u => u.Email)
+            .IsRequired();
+
+        //wymaganie posiadania nazwy roli użytkownika
+        modelBuilder.Entity<Role>()
+            .Property(r => r.Name)
+            .IsRequired();
+
         modelBuilder.Entity<Restaurant>()
             .Property(r => r.Name)
             .IsRequired()

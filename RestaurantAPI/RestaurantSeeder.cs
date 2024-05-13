@@ -14,6 +14,16 @@ public class RestaurantSeeder
         //sprawdzenie czy jesteśmy połączeni z bazą
         if(_dbContext.Database.CanConnect())
         {
+            //sprawdzenie czy istnieją role w bazie danych
+            if(!_dbContext.Roles.Any())
+            {
+                //dodanie ról do bazy danych
+                var roles = this.GetRoles();
+                _dbContext.Roles.AddRange(roles);
+                _dbContext.SaveChanges();
+            }
+
+
            //sprawdzenie czy tabela z restauracjami jest pusta
            if(!_dbContext.Restaurants.Any())
            {
@@ -25,6 +35,27 @@ public class RestaurantSeeder
            }
         }
 
+    }
+
+    private IEnumerable<Role> GetRoles()
+    {
+        var roles = new List<Role>()
+        {
+            new Role()
+            {
+               Name = "User" 
+            },
+            new Role()
+            {
+               Name = "Manager" 
+            },
+            new Role()
+            {
+               Name = "Admin" 
+            }
+        };
+
+        return roles;
     }
 
     private IEnumerable<Restaurant> GetRestaurants()
