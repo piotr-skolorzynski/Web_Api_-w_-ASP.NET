@@ -17,6 +17,7 @@ builder.Services.AddScoped<RestaurantSeeder>(); //dodanie serwisu do seedowania
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //rejestracja automapera
 builder.Services.AddScoped<IRestaurantService, RestaurantService>(); //rejestracja serwisu Restaurant do kontrolera
 builder.Services.AddScoped<IDishService, DishService>(); //rejestracja serwisu dish
+builder.Services.AddScoped<IAccountService, AccountService>(); //rejestracja serwisu account
 builder.Services.AddScoped<ErrorHandlingMiddleware>(); //rejestracja ErrorHandlingMiddleware
 builder.Services.AddScoped<RequestTimeMiddleware>(); //rejestracja RequestTimeMiddleware
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
