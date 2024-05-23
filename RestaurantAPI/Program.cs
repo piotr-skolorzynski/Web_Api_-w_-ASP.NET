@@ -1,5 +1,6 @@
 //utworzenie webhosta
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 using NLog.Web;
 using RestaurantAPI;
 
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IDishService, DishService>(); //rejestracja serwisu d
 builder.Services.AddScoped<IAccountService, AccountService>(); //rejestracja serwisu account
 builder.Services.AddScoped<ErrorHandlingMiddleware>(); //rejestracja ErrorHandlingMiddleware
 builder.Services.AddScoped<RequestTimeMiddleware>(); //rejestracja RequestTimeMiddleware
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();//rejestracja serwisu do hashowania haseł
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
