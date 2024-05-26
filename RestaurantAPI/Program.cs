@@ -1,5 +1,6 @@
 //utworzenie webhosta
 using System.Reflection;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using NLog.Web;
 using RestaurantAPI;
@@ -12,7 +13,7 @@ builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<RestaurantDbContext>(); //dodanie kontekstu bazy
 builder.Services.AddScoped<RestaurantSeeder>(); //dodanie serwisu do seedowania
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //rejestracja automapera
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IAccountService, AccountService>(); //rejestracja ser
 builder.Services.AddScoped<ErrorHandlingMiddleware>(); //rejestracja ErrorHandlingMiddleware
 builder.Services.AddScoped<RequestTimeMiddleware>(); //rejestracja RequestTimeMiddleware
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();//rejestracja serwisu do hashowania haseł
+builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>(); //rejestracja walidatora dla rejetrowanego usera
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
