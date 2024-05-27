@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Hn1BeQlNKFeyz0z9u9+T8l+OsmGCUQjtisaywVgu6hiw3hikCdc3DU7gUazIr55g4JIcZDSZ5OtfXAg8w65XMw==",
+  "dgSpecHash": "ZdguTG95W2Jk9Z7O0lChSfozqg69aF0X9x5kre/LvX64KTqTllRG0IJoq3EhP59PLXb0khgab3h/nktQXVnX5w==",
   "success": true,
   "projectFilePath": "D:\\Repos\\27. Web Api w ASP.NET\\RestaurantAPI\\RestaurantAPI.csproj",
   "expectedPackageFiles": [
@@ -8,8 +8,11 @@
     "C:\\Users\\48791\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\48791\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\48791\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
-    "C:\\Users\\48791\\.nuget\\packages\\fluentvalidation\\11.9.1\\fluentvalidation.11.9.1.nupkg.sha512",
+    "C:\\Users\\48791\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\48791\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\48791\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\48791\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\48791\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.19\\microsoft.aspnetcore.authentication.jwtbearer.7.0.19.nupkg.sha512",
     "C:\\Users\\48791\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\48791\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\48791\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

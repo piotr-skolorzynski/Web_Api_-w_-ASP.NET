@@ -1,7 +1,9 @@
 //utworzenie webhosta
 using System.Reflection;
+using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using RestaurantAPI;
 
@@ -13,6 +15,26 @@ builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
 
 // Add services to the container.
+//dodanie autoryzacji
+var authenticationSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+builder.Services.AddAuthentication(option => 
+{
+    option.DefaultAuthenticateScheme = "Bearer";
+    option.DefaultScheme = "Bearer";
+    option.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer(cfg =>
+{
+    cfg.RequireHttpsMetadata = false;
+    cfg.SaveToken = true;
+    cfg.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = authenticationSettings.JwtIssuer,
+        ValidAudience = authenticationSettings.JwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+    };
+});
+
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<RestaurantDbContext>(); //dodanie kontekstu bazy
 builder.Services.AddScoped<RestaurantSeeder>(); //dodanie serwisu do seedowania
@@ -53,7 +75,8 @@ if (app.Environment.IsDevelopment())
 //obsługiwać wyjątki po odpalaniu kolejnych elementó aplikacji
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseMiddleware<RequestTimeMiddleware>();
-
+//nakazujemy aplikacji uwierzytelnianie użytkowników
+app.UseAuthentication();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
